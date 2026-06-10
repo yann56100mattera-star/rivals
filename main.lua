@@ -1,219 +1,87 @@
 --[[
-    ╔═══════════════════════════════════════════════════════════════════╗
-    ║                                                                   ║
-    ║        ██████╗ ██╗██╗   ██╗ █████╗ ██╗     ███████╗             ║
-    ║        ██╔══██╗██║██║   ██║██╔══██╗██║     ██╔════╝             ║
-    ║        ██████╔╝██║██║   ██║███████║██║     ███████╗             ║
-    ║        ██╔══██╗██║╚██╗ ██╔╝██╔══██║██║     ╚════██║             ║
-    ║        ██║  ██║██║ ╚████╔╝ ██║  ██║███████╗███████║             ║
-    ║        ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝╚══════╝             ║
-    ║                                                                   ║
-    ║              🌟 ULTIMATE HACK MENU 🌟                            ║
-    ║              By Hiroshi738                                        ║
-    ║              Version 4.0 PREMIUM                                  ║
-    ║                                                                   ║
-    ╚═══════════════════════════════════════════════════════════════════╝
-]]
+═══════════════════════════════════════════════════════════════════════════════
+    ⚡ RIVALS ULTIMATE PREMIUM MENU - BY HIROSHI738 ⚡
+    
+    🌟 MENU PREMIUM MASTER CLASS 🌟
+    Version : 4.0.0 MASTER CLASS EDITION
+    Prix : 500€/mois
+    Créé par : Hiroshi738
+═══════════════════════════════════════════════════════════════════════════════
+--]]
 
+-- Services
 local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
+local SoundService = game:GetService("SoundService")
 local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 local Camera = workspace.CurrentCamera
 
--- ═══════════════════════════════════════════════════════════════════════════
--- CONFIGURATION PREMIUM
--- ═══════════════════════════════════════════════════════════════════════════
-local Config = {
-    -- Aimbot Settings
-    AimbotEnabled = false,
-    AimbotFOV = 300,
-    AimbotSmooth = 0.15,
-    AimbotPart = "Head",
-    AimbotVisibleOnly = true,
-    AimbotTeamCheck = false,
-    
-    -- ESP Settings
-    ESPEnabled = false,
-    ESPBoxes = true,
-    ESPNames = true,
-    ESPDistance = true,
-    ESPHealth = true,
-    ESPTracers = false,
-    ESPTeamCheck = false,
-    ESPColorVisible = Color3.fromRGB(0, 255, 0),    -- VERT quand visible
-    ESPColorHidden = Color3.fromRGB(255, 0, 0),     -- ROUGE à travers murs
-    
-    -- Speed Settings
-    SpeedEnabled = false,
-    SpeedValue = 50,
-    
-    -- Other Settings
-    InfiniteAmmo = false,
-    NoRecoil = false,
-    NoSpread = false,
-    InstantHit = false,
-    TriggerBot = false,
-    BunnyHop = false,
-    FlyHack = false,
-    Wallhack = false,
-    
-    -- Visual Settings
-    FOVCircle = true,
-    FOVSize = 300,
-    Crosshair = true,
-    HitMarkers = true,
-    KillSounds = true,
-    
-    -- Menu Colors
-    PrimaryColor = Color3.fromRGB(88, 101, 242),    -- Discord Blurple
-    SecondaryColor = Color3.fromRGB(114, 137, 218),
-    AccentColor = Color3.fromRGB(255, 73, 130),     -- Rose vif
-    BackgroundColor = Color3.fromRGB(32, 34, 37),
-    TextColor = Color3.fromRGB(255, 255, 255),
-}
+print("🎮 Chargement de Rivals Ultimate Premium Menu...")
+print("⚡ Master Class Edition - by Hiroshi738")
 
-local Connections = {}
-local ESPObjects = {}
-
--- ═══════════════════════════════════════════════════════════════════════════
--- SONS PREMIUM
--- ═══════════════════════════════════════════════════════════════════════════
+-- Système Audio Premium
 local Sounds = {
-    Click = "rbxassetid://6895079853",
-    Toggle = "rbxassetid://6916371803",
-    Notification = "rbxassetid://6895079853",
-    HitMarker = "rbxassetid://5952120301",
-    Kill = "rbxassetid://5952120301",
+    MenuOpen = "rbxassetid://6895079853",
+    MenuClose = "rbxassetid://6895079853",
+    Click = "rbxassetid://3398620867",
+    Toggle = "rbxassetid://3398620867",
+    Hover = "rbxassetid://6895079853",
+    Success = "rbxassetid://6026984224",
+    Anime = "rbxassetid://1837849285",
+    PowerUp = "rbxassetid://5153845714",
 }
 
-local function PlaySound(soundId, volume)
+local function PlaySound(soundId, volume, pitch)
     local sound = Instance.new("Sound")
     sound.SoundId = soundId
-    sound.Volume = volume or 0.3
-    sound.Parent = game.SoundService
+    sound.Volume = volume or 0.5
+    sound.PlaybackSpeed = pitch or 1
+    sound.Parent = SoundService
     sound:Play()
-    game:GetService("Debris"):AddItem(sound, 2)
+    game:GetService("Debris"):AddItem(sound, 3)
 end
 
--- ═══════════════════════════════════════════════════════════════════════════
--- SYSTÈME DE NOTIFICATIONS
--- ═══════════════════════════════════════════════════════════════════════════
-local NotifGui = Instance.new("ScreenGui")
-NotifGui.Name = "Notifications"
-NotifGui.ResetOnSpawn = false
-NotifGui.Parent = game.CoreGui
+-- Configuration
+local Config = {
+    Colors = {
+        Primary = Color3.fromRGB(138, 43, 226),
+        Secondary = Color3.fromRGB(75, 0, 130),
+        Accent = Color3.fromRGB(0, 191, 255),
+        Background = Color3.fromRGB(10, 10, 18),
+        Panel = Color3.fromRGB(20, 20, 35),
+        White = Color3.fromRGB(255, 255, 255),
+        Green = Color3.fromRGB(0, 255, 127),
+        Red = Color3.fromRGB(255, 69, 58),
+        Gold = Color3.fromRGB(255, 215, 0),
+    }
+}
 
-local function Notify(title, message, duration)
-    PlaySound(Sounds.Notification, 0.2)
-    
-    local notif = Instance.new("Frame")
-    notif.Size = UDim2.new(0, 350, 0, 90)
-    notif.Position = UDim2.new(1, 20, 0, 20)
-    notif.BackgroundColor3 = Config.BackgroundColor
-    notif.BorderSizePixel = 0
-    notif.Parent = NotifGui
-    
-    local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 12)
-    corner.Parent = notif
-    
-    local stroke = Instance.new("UIStroke")
-    stroke.Color = Config.AccentColor
-    stroke.Thickness = 2
-    stroke.Parent = notif
-    
-    local glow = Instance.new("ImageLabel")
-    glow.Size = UDim2.new(1, 20, 1, 20)
-    glow.Position = UDim2.new(0, -10, 0, -10)
-    glow.BackgroundTransparency = 1
-    glow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-    glow.ImageColor3 = Config.AccentColor
-    glow.ImageTransparency = 0.8
-    glow.ZIndex = 0
-    glow.Parent = notif
-    
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Size = UDim2.new(1, -20, 0, 30)
-    titleLabel.Position = UDim2.new(0, 10, 0, 10)
-    titleLabel.BackgroundTransparency = 1
-    titleLabel.Text = "✨ " .. title
-    titleLabel.TextColor3 = Config.AccentColor
-    titleLabel.TextSize = 18
-    titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    titleLabel.Parent = notif
-    
-    local msgLabel = Instance.new("TextLabel")
-    msgLabel.Size = UDim2.new(1, -20, 0, 40)
-    msgLabel.Position = UDim2.new(0, 10, 0, 40)
-    msgLabel.BackgroundTransparency = 1
-    msgLabel.Text = message
-    msgLabel.TextColor3 = Config.TextColor
-    msgLabel.TextSize = 14
-    msgLabel.Font = Enum.Font.Gotham
-    msgLabel.TextWrapped = true
-    msgLabel.TextXAlignment = Enum.TextXAlignment.Left
-    msgLabel.Parent = notif
-    
-    TweenService:Create(notif, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-        Position = UDim2.new(1, -370, 0, 20)
-    }):Play()
-    
-    wait(duration or 3)
-    
-    TweenService:Create(notif, TweenInfo.new(0.3), {
-        Position = UDim2.new(1, 20, 0, 20)
-    }):Play()
-    
-    wait(0.3)
-    notif:Destroy()
-end
+local MenuVisible = false
+local CurrentTab = "Dashboard"
 
--- ═══════════════════════════════════════════════════════════════════════════
--- HIT MARKERS
--- ═══════════════════════════════════════════════════════════════════════════
-local HitMarkerGui = Instance.new("ScreenGui")
-HitMarkerGui.Name = "HitMarkers"
-HitMarkerGui.ResetOnSpawn = false
-HitMarkerGui.Parent = game.CoreGui
-
-local function ShowHitMarker(isHeadshot)
-    if not Config.HitMarkers then return end
-    
-    PlaySound(Sounds.HitMarker, 0.5)
-    
-    local size = isHeadshot and 60 or 40
-    local marker = Instance.new("ImageLabel")
-    marker.Size = UDim2.new(0, size, 0, size)
-    marker.Position = UDim2.new(0.5, -size/2, 0.5, -size/2)
-    marker.BackgroundTransparency = 1
-    marker.Image = "rbxassetid://2708891598"
-    marker.ImageColor3 = isHeadshot and Color3.fromRGB(255, 215, 0) or Color3.fromRGB(255, 255, 255)
-    marker.Parent = HitMarkerGui
-    
-    TweenService:Create(marker, TweenInfo.new(0.3), {
-        ImageTransparency = 1,
-        Size = UDim2.new(0, size * 1.5, 0, size * 1.5)
-    }):Play()
-    
-    wait(0.3)
-    marker:Destroy()
-end
-
--- ═══════════════════════════════════════════════════════════════════════════
--- INTERFACE PRINCIPALE
--- ═══════════════════════════════════════════════════════════════════════════
+-- Interface
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "RivalsHackByHiroshi738"
+ScreenGui.Name = "RivalsUltimatePremium"
 ScreenGui.ResetOnSpawn = false
-ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = PlayerGui
+
+local BlurOverlay = Instance.new("Frame")
+BlurOverlay.Size = UDim2.new(1, 0, 1, 0)
+BlurOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+BlurOverlay.BackgroundTransparency = 0.3
+BlurOverlay.BorderSizePixel = 0
+BlurOverlay.Visible = false
+BlurOverlay.Parent = ScreenGui
 
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 650, 0, 450)
-MainFrame.Position = UDim2.new(0.5, -325, 0.5, -225)
-MainFrame.BackgroundColor3 = Config.BackgroundColor
+MainFrame.Size = UDim2.new(0, 900, 0, 600)
+MainFrame.Position = UDim2.new(0.5, -450, 0.5, -300)
+MainFrame.BackgroundColor3 = Config.Colors.Background
+MainFrame.BackgroundTransparency = 0.1
 MainFrame.BorderSizePixel = 0
 MainFrame.Visible = false
 MainFrame.Parent = ScreenGui
@@ -223,25 +91,25 @@ MainCorner.CornerRadius = UDim.new(0, 16)
 MainCorner.Parent = MainFrame
 
 local MainStroke = Instance.new("UIStroke")
-MainStroke.Color = Config.PrimaryColor
+MainStroke.Color = Config.Colors.Primary
 MainStroke.Thickness = 3
+MainStroke.Transparency = 0.3
 MainStroke.Parent = MainFrame
 
--- Effet de glow
-local Glow = Instance.new("ImageLabel")
-Glow.Size = UDim2.new(1, 40, 1, 40)
-Glow.Position = UDim2.new(0, -20, 0, -20)
-Glow.BackgroundTransparency = 1
-Glow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-Glow.ImageColor3 = Config.PrimaryColor
-Glow.ImageTransparency = 0.7
-Glow.ZIndex = 0
-Glow.Parent = MainFrame
+local MainGradient = Instance.new("UIGradient")
+MainGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Config.Colors.Primary),
+    ColorSequenceKeypoint.new(0.5, Config.Colors.Accent),
+    ColorSequenceKeypoint.new(1, Config.Colors.Secondary)
+}
+MainGradient.Rotation = 45
+MainGradient.Parent = MainStroke
 
--- Header avec gradient
+-- Header
 local Header = Instance.new("Frame")
 Header.Size = UDim2.new(1, 0, 0, 70)
-Header.BackgroundColor3 = Config.PrimaryColor
+Header.BackgroundColor3 = Config.Colors.Panel
+Header.BackgroundTransparency = 0.3
 Header.BorderSizePixel = 0
 Header.Parent = MainFrame
 
@@ -251,18 +119,19 @@ HeaderCorner.Parent = Header
 
 local HeaderGradient = Instance.new("UIGradient")
 HeaderGradient.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Config.PrimaryColor),
-    ColorSequenceKeypoint.new(1, Config.SecondaryColor)
+    ColorSequenceKeypoint.new(0, Config.Colors.Primary),
+    ColorSequenceKeypoint.new(1, Config.Colors.Secondary)
 }
-HeaderGradient.Rotation = 45
+HeaderGradient.Rotation = 90
 HeaderGradient.Parent = Header
 
 local Logo = Instance.new("TextLabel")
-Logo.Size = UDim2.new(0, 50, 0, 50)
-Logo.Position = UDim2.new(0, 15, 0, 10)
+Logo.Size = UDim2.new(0, 60, 0, 60)
+Logo.Position = UDim2.new(0, 10, 0, 5)
 Logo.BackgroundTransparency = 1
-Logo.Text = "🎮"
-Logo.TextSize = 36
+Logo.Text = "⚡"
+Logo.TextColor3 = Config.Colors.Gold
+Logo.TextSize = 40
 Logo.Font = Enum.Font.GothamBold
 Logo.Parent = Header
 
@@ -270,8 +139,8 @@ local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(0, 400, 0, 30)
 Title.Position = UDim2.new(0, 75, 0, 10)
 Title.BackgroundTransparency = 1
-Title.Text = "RIVALS ULTIMATE HACK"
-Title.TextColor3 = Config.TextColor
+Title.Text = "RIVALS ULTIMATE PREMIUM"
+Title.TextColor3 = Config.Colors.White
 Title.TextSize = 22
 Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
@@ -279,34 +148,35 @@ Title.Parent = Header
 
 local Subtitle = Instance.new("TextLabel")
 Subtitle.Size = UDim2.new(0, 400, 0, 20)
-Subtitle.Position = UDim2.new(0, 75, 0, 42)
+Subtitle.Position = UDim2.new(0, 75, 0, 40)
 Subtitle.BackgroundTransparency = 1
-Title.Text = "By Hiroshi738 | Version 4.0 Premium"
-Subtitle.TextColor3 = Color3.fromRGB(200, 200, 200)
-Subtitle.TextSize = 12
+Subtitle.Text = "Master Class Edition • by Hiroshi738 • 500€/mois"
+Subtitle.TextColor3 = Config.Colors.Accent
+Subtitle.TextSize = 11
 Subtitle.Font = Enum.Font.Gotham
 Subtitle.TextXAlignment = Enum.TextXAlignment.Left
 Subtitle.Parent = Header
 
-local CloseBtn = Instance.new("TextButton")
-CloseBtn.Size = UDim2.new(0, 45, 0, 45)
-CloseBtn.Position = UDim2.new(1, -60, 0, 12)
-CloseBtn.BackgroundColor3 = Config.AccentColor
-CloseBtn.Text = "✕"
-CloseBtn.TextColor3 = Config.TextColor
-CloseBtn.TextSize = 22
-CloseBtn.Font = Enum.Font.GothamBold
-CloseBtn.Parent = Header
+local CloseButton = Instance.new("TextButton")
+CloseButton.Size = UDim2.new(0, 40, 0, 40)
+CloseButton.Position = UDim2.new(1, -50, 0, 15)
+CloseButton.BackgroundColor3 = Config.Colors.Red
+CloseButton.Text = "✕"
+CloseButton.TextColor3 = Config.Colors.White
+CloseButton.TextSize = 20
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.Parent = Header
 
 local CloseCorner = Instance.new("UICorner")
 CloseCorner.CornerRadius = UDim.new(0, 10)
-CloseCorner.Parent = CloseBtn
+CloseCorner.Parent = CloseButton
 
--- Sidebar pour les catégories
+-- Sidebar
 local Sidebar = Instance.new("Frame")
-Sidebar.Size = UDim2.new(0, 150, 1, -80)
-Sidebar.Position = UDim2.new(0, 10, 0, 80)
-Sidebar.BackgroundColor3 = Color3.fromRGB(40, 42, 45)
+Sidebar.Size = UDim2.new(0, 140, 1, -80)
+Sidebar.Position = UDim2.new(0, 10, 0, 75)
+Sidebar.BackgroundColor3 = Config.Colors.Panel
+Sidebar.BackgroundTransparency = 0.4
 Sidebar.BorderSizePixel = 0
 Sidebar.Parent = MainFrame
 
@@ -315,596 +185,423 @@ SidebarCorner.CornerRadius = UDim.new(0, 12)
 SidebarCorner.Parent = Sidebar
 
 local SidebarLayout = Instance.new("UIListLayout")
-SidebarLayout.Padding = UDim.new(0, 5)
+SidebarLayout.Padding = UDim.new(0, 6)
 SidebarLayout.SortOrder = Enum.SortOrder.LayoutOrder
+SidebarLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 SidebarLayout.Parent = Sidebar
 
--- Content area
-local ContentFrame = Instance.new("ScrollingFrame")
-ContentFrame.Size = UDim2.new(1, -180, 1, -90)
-ContentFrame.Position = UDim2.new(0, 170, 0, 80)
-ContentFrame.BackgroundTransparency = 1
-ContentFrame.BorderSizePixel = 0
-ContentFrame.ScrollBarThickness = 6
-ContentFrame.ScrollBarImageColor3 = Config.PrimaryColor
-ContentFrame.Parent = MainFrame
+local SidebarPadding = Instance.new("UIPadding")
+SidebarPadding.PaddingTop = UDim.new(0, 10)
+SidebarPadding.Parent = Sidebar
+
+-- Content Area
+local ContentArea = Instance.new("ScrollingFrame")
+ContentArea.Size = UDim2.new(1, -165, 1, -80)
+ContentArea.Position = UDim2.new(0, 155, 0, 75)
+ContentArea.BackgroundColor3 = Config.Colors.Panel
+ContentArea.BackgroundTransparency = 0.4
+ContentArea.BorderSizePixel = 0
+ContentArea.ScrollBarThickness = 8
+ContentArea.ScrollBarImageColor3 = Config.Colors.Primary
+ContentArea.CanvasSize = UDim2.new(0, 0, 0, 0)
+ContentArea.Parent = MainFrame
+
+local ContentCorner = Instance.new("UICorner")
+ContentCorner.CornerRadius = UDim.new(0, 12)
+ContentCorner.Parent = ContentArea
 
 local ContentLayout = Instance.new("UIListLayout")
-ContentLayout.Padding = UDim.new(0, 8)
+ContentLayout.Padding = UDim.new(0, 12)
 ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
-ContentLayout.Parent = ContentFrame
+ContentLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+ContentLayout.Parent = ContentArea
 
--- ═══════════════════════════════════════════════════════════════════════════
--- FONCTION POUR CRÉER UN TOGGLE MODERNE
--- ═══════════════════════════════════════════════════════════════════════════
-local function CreateToggle(name, icon, description, defaultValue, callback)
-    local Toggle = Instance.new("Frame")
-    Toggle.Size = UDim2.new(1, -10, 0, 70)
-    Toggle.BackgroundColor3 = Color3.fromRGB(40, 42, 45)
-    Toggle.BorderSizePixel = 0
-    Toggle.Parent = ContentFrame
+local ContentPadding = Instance.new("UIPadding")
+ContentPadding.PaddingTop = UDim.new(0, 15)
+ContentPadding.PaddingBottom = UDim.new(0, 15)
+ContentPadding.PaddingLeft = UDim.new(0, 15)
+ContentPadding.PaddingRight = UDim.new(0, 15)
+ContentPadding.Parent = ContentArea
+
+-- Fonctions UI
+local function CreateTabButton(name, icon, order)
+    local Button = Instance.new("TextButton")
+    Button.Name = name
+    Button.Size = UDim2.new(1, -10, 0, 45)
+    Button.BackgroundColor3 = Config.Colors.Background
+    Button.BackgroundTransparency = 0.3
+    Button.BorderSizePixel = 0
+    Button.Text = ""
+    Button.LayoutOrder = order
+    Button.AutoButtonColor = false
+    Button.Parent = Sidebar
+    
+    local Corner = Instance.new("UICorner")
+    Corner.CornerRadius = UDim.new(0, 10)
+    Corner.Parent = Button
+    
+    local Icon = Instance.new("TextLabel")
+    Icon.Size = UDim2.new(0, 35, 1, 0)
+    Icon.Position = UDim2.new(0, 5, 0, 0)
+    Icon.BackgroundTransparency = 1
+    Icon.Text = icon
+    Icon.TextColor3 = Config.Colors.White
+    Icon.TextSize = 18
+    Icon.Font = Enum.Font.GothamBold
+    Icon.Parent = Button
+    
+    local Label = Instance.new("TextLabel")
+    Label.Size = UDim2.new(1, -45, 1, 0)
+    Label.Position = UDim2.new(0, 40, 0, 0)
+    Label.BackgroundTransparency = 1
+    Label.Text = name
+    Label.TextColor3 = Config.Colors.White
+    Label.TextSize = 13
+    Label.Font = Enum.Font.GothamBold
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.Parent = Button
+    
+    Button.MouseEnter:Connect(function()
+        PlaySound(Sounds.Hover, 0.2, 1.2)
+        TweenService:Create(Button, TweenInfo.new(0.2), {
+            BackgroundTransparency = 0,
+            BackgroundColor3 = Config.Colors.Primary
+        }):Play()
+    end)
+    
+    Button.MouseLeave:Connect(function()
+        if CurrentTab ~= name then
+            TweenService:Create(Button, TweenInfo.new(0.2), {
+                BackgroundTransparency = 0.3,
+                BackgroundColor3 = Config.Colors.Background
+            }):Play()
+        end
+    end)
+    
+    return Button
+end
+
+local function CreateToggle(parent, text, defaultValue, callback)
+    local Container = Instance.new("Frame")
+    Container.Size = UDim2.new(1, -30, 0, 40)
+    Container.BackgroundColor3 = Config.Colors.Background
+    Container.BackgroundTransparency = 0.3
+    Container.BorderSizePixel = 0
+    Container.Parent = parent
+    
+    local Corner = Instance.new("UICorner")
+    Corner.CornerRadius = UDim.new(0, 10)
+    Corner.Parent = Container
+    
+    local Label = Instance.new("TextLabel")
+    Label.Size = UDim2.new(1, -70, 1, 0)
+    Label.Position = UDim2.new(0, 15, 0, 0)
+    Label.BackgroundTransparency = 1
+    Label.Text = text
+    Label.TextColor3 = Config.Colors.White
+    Label.TextSize = 14
+    Label.Font = Enum.Font.GothamBold
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.Parent = Container
+    
+    local Toggle = Instance.new("TextButton")
+    Toggle.Size = UDim2.new(0, 50, 0, 26)
+    Toggle.Position = UDim2.new(1, -60, 0.5, -13)
+    Toggle.BackgroundColor3 = defaultValue and Config.Colors.Green or Config.Colors.Red
+    Toggle.Text = ""
+    Toggle.AutoButtonColor = false
+    Toggle.Parent = Container
     
     local ToggleCorner = Instance.new("UICorner")
-    ToggleCorner.CornerRadius = UDim.new(0, 10)
+    ToggleCorner.CornerRadius = UDim.new(1, 0)
     ToggleCorner.Parent = Toggle
     
-    local IconLabel = Instance.new("TextLabel")
-    IconLabel.Size = UDim2.new(0, 50, 0, 50)
-    IconLabel.Position = UDim2.new(0, 10, 0, 10)
-    IconLabel.BackgroundTransparency = 1
-    IconLabel.Text = icon
-    IconLabel.TextSize = 32
-    IconLabel.Font = Enum.Font.GothamBold
-    IconLabel.Parent = Toggle
+    local Indicator = Instance.new("Frame")
+    Indicator.Size = UDim2.new(0, 20, 0, 20)
+    Indicator.Position = defaultValue and UDim2.new(1, -23, 0.5, -10) or UDim2.new(0, 3, 0.5, -10)
+    Indicator.BackgroundColor3 = Config.Colors.White
+    Indicator.BorderSizePixel = 0
+    Indicator.Parent = Toggle
     
-    local NameLabel = Instance.new("TextLabel")
-    NameLabel.Size = UDim2.new(0, 280, 0, 25)
-    NameLabel.Position = UDim2.new(0, 70, 0, 12)
-    NameLabel.BackgroundTransparency = 1
-    NameLabel.Text = name
-    NameLabel.TextColor3 = Config.TextColor
-    NameLabel.TextSize = 16
-    NameLabel.Font = Enum.Font.GothamBold
-    NameLabel.TextXAlignment = Enum.TextXAlignment.Left
-    NameLabel.Parent = Toggle
+    local IndicatorCorner = Instance.new("UICorner")
+    IndicatorCorner.CornerRadius = UDim.new(1, 0)
+    IndicatorCorner.Parent = Indicator
     
-    local DescLabel = Instance.new("TextLabel")
-    DescLabel.Size = UDim2.new(0, 280, 0, 20)
-    DescLabel.Position = UDim2.new(0, 70, 0, 38)
-    DescLabel.BackgroundTransparency = 1
-    DescLabel.Text = description
-    DescLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
-    DescLabel.TextSize = 12
-    DescLabel.Font = Enum.Font.Gotham
-    DescLabel.TextXAlignment = Enum.TextXAlignment.Left
-    DescLabel.Parent = Toggle
+    local isEnabled = defaultValue
     
-    -- Toggle switch moderne
-    local SwitchBg = Instance.new("Frame")
-    SwitchBg.Size = UDim2.new(0, 50, 0, 26)
-    SwitchBg.Position = UDim2.new(1, -60, 0, 22)
-    SwitchBg.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    SwitchBg.BorderSizePixel = 0
-    SwitchBg.Parent = Toggle
-    
-    local SwitchCorner = Instance.new("UICorner")
-    SwitchCorner.CornerRadius = UDim.new(1, 0)
-    SwitchCorner.Parent = SwitchBg
-    
-    local SwitchBtn = Instance.new("Frame")
-    SwitchBtn.Size = UDim2.new(0, 22, 0, 22)
-    SwitchBtn.Position = UDim2.new(0, 2, 0, 2)
-    SwitchBtn.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
-    SwitchBtn.BorderSizePixel = 0
-    SwitchBtn.Parent = SwitchBg
-    
-    local BtnCorner = Instance.new("UICorner")
-    BtnCorner.CornerRadius = UDim.new(1, 0)
-    BtnCorner.Parent = SwitchBtn
-    
-    local isEnabled = defaultValue or false
-    
-    if isEnabled then
-        SwitchBg.BackgroundColor3 = Config.AccentColor
-        SwitchBtn.Position = UDim2.new(1, -24, 0, 2)
-    end
-    
-    local ClickDetector = Instance.new("TextButton")
-    ClickDetector.Size = UDim2.new(1, 0, 1, 0)
-    ClickDetector.BackgroundTransparency = 1
-    ClickDetector.Text = ""
-    ClickDetector.Parent = Toggle
-    
-    ClickDetector.MouseButton1Click:Connect(function()
+    Toggle.MouseButton1Click:Connect(function()
         isEnabled = not isEnabled
-        PlaySound(Sounds.Toggle, 0.3)
-        
+        PlaySound(Sounds.Toggle, 0.4, isEnabled and 1.2 or 0.8)
         if isEnabled then
-            TweenService:Create(SwitchBg, TweenInfo.new(0.2), {
-                BackgroundColor3 = Config.AccentColor
-            }):Play()
-            TweenService:Create(SwitchBtn, TweenInfo.new(0.2, Enum.EasingStyle.Back), {
-                Position = UDim2.new(1, -24, 0, 2)
-            }):Play()
-        else
-            TweenService:Create(SwitchBg, TweenInfo.new(0.2), {
-                BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-            }):Play()
-            TweenService:Create(SwitchBtn, TweenInfo.new(0.2, Enum.EasingStyle.Back), {
-                Position = UDim2.new(0, 2, 0, 2)
-            }):Play()
+            PlaySound(Sounds.PowerUp, 0.3, 1.5)
         end
         
-        callback(isEnabled)
+        TweenService:Create(Toggle, TweenInfo.new(0.3, Enum.EasingStyle.Back), {
+            BackgroundColor3 = isEnabled and Config.Colors.Green or Config.Colors.Red
+        }):Play()
+        
+        TweenService:Create(Indicator, TweenInfo.new(0.3, Enum.EasingStyle.Back), {
+            Position = isEnabled and UDim2.new(1, -23, 0.5, -10) or UDim2.new(0, 3, 0.5, -10)
+        }):Play()
+        
+        if callback then callback(isEnabled) end
     end)
     
-    ClickDetector.MouseEnter:Connect(function()
-        TweenService:Create(Toggle, TweenInfo.new(0.2), {
-            BackgroundColor3 = Color3.fromRGB(50, 52, 55)
-        }):Play()
+    return Container
+end
+
+local function CreateSection(parent, title)
+    local Section = Instance.new("Frame")
+    Section.Size = UDim2.new(1, -30, 0, 35)
+    Section.BackgroundTransparency = 1
+    Section.Parent = parent
+    
+    local Line = Instance.new("Frame")
+    Line.Size = UDim2.new(1, 0, 0, 2)
+    Line.Position = UDim2.new(0, 0, 0.5, 0)
+    Line.BackgroundColor3 = Config.Colors.Primary
+    Line.BorderSizePixel = 0
+    Line.Parent = Section
+    
+    local SectionTitle = Instance.new("TextLabel")
+    SectionTitle.Size = UDim2.new(0, 0, 1, 0)
+    SectionTitle.Position = UDim2.new(0.5, 0, 0, 0)
+    SectionTitle.AnchorPoint = Vector2.new(0.5, 0)
+    SectionTitle.BackgroundColor3 = Config.Colors.Panel
+    SectionTitle.BackgroundTransparency = 0.2
+    SectionTitle.Text = "  " .. title .. "  "
+    SectionTitle.TextColor3 = Config.Colors.Accent
+    SectionTitle.TextSize = 15
+    SectionTitle.Font = Enum.Font.GothamBold
+    SectionTitle.Parent = Section
+    
+    local TitleCorner = Instance.new("UICorner")
+    TitleCorner.CornerRadius = UDim.new(0, 8)
+    TitleCorner.Parent = SectionTitle
+    
+    return Section
+end
+
+-- Onglets
+local Tabs = {}
+Tabs.Dashboard = CreateTabButton("Dashboard", "📊", 1)
+Tabs.Combat = CreateTabButton("Combat", "⚔️", 2)
+Tabs.Visuals = CreateTabButton("Visuals", "👁️", 3)
+Tabs.Character = CreateTabButton("Character", "🧍", 4)
+Tabs.Configs = CreateTabButton("Configs", "💾", 5)
+
+-- Contenu
+local function LoadCombatTab()
+    ContentArea:ClearAllChildren()
+    ContentLayout.Parent = ContentArea
+    ContentPadding.Parent = ContentArea
+    
+    CreateSection(ContentArea, "AIMBOT PREMIUM")
+    CreateToggle(ContentArea, "🎯 Aimbot Enabled", false, nil)
+    CreateToggle(ContentArea, "👁️ Visible Check", false, nil)
+    CreateToggle(ContentArea, "👥 Team Check", false, nil)
+    CreateToggle(ContentArea, "🎯 Silent Aim", false, nil)
+    
+    CreateSection(ContentArea, "COMBAT FEATURES")
+    CreateToggle(ContentArea, "🔫 Trigger Bot", false, nil)
+    CreateToggle(ContentArea, "⚡ Rapid Fire", false, nil)
+    CreateToggle(ContentArea, "🎯 No Recoil", false, nil)
+    CreateToggle(ContentArea, "🎯 No Spread", false, nil)
+    CreateToggle(ContentArea, "🔫 Infinite Ammo", false, nil)
+end
+
+local function LoadVisualsTab()
+    ContentArea:ClearAllChildren()
+    ContentLayout.Parent = ContentArea
+    ContentPadding.Parent = ContentArea
+    
+    CreateSection(ContentArea, "ESP PREMIUM")
+    CreateToggle(ContentArea, "👁️ ESP Enabled", false, nil)
+    CreateToggle(ContentArea, "📦 Box ESP", false, nil)
+    CreateToggle(ContentArea, "💀 Skeleton ESP", false, nil)
+    CreateToggle(ContentArea, "📏 Distance ESP", false, nil)
+    CreateToggle(ContentArea, "🔫 Weapon ESP", false, nil)
+    CreateToggle(ContentArea, "❤️ Health Bar", false, nil)
+    CreateToggle(ContentArea, "📸 Profile Picture", false, nil)
+    
+    CreateSection(ContentArea, "CHAMS")
+    CreateToggle(ContentArea, "✨ Chams Enabled", false, nil)
+    CreateToggle(ContentArea, "🎨 Filled Chams", false, nil)
+    
+    CreateSection(ContentArea, "TRACER")
+    CreateToggle(ContentArea, "📍 Tracer Enabled", false, nil)
+end
+
+local function LoadCharacterTab()
+    ContentArea:ClearAllChildren()
+    ContentLayout.Parent = ContentArea
+    ContentPadding.Parent = ContentArea
+    
+    CreateSection(ContentArea, "MOVEMENT")
+    CreateToggle(ContentArea, "⚡ Speed Hack", false, nil)
+    CreateToggle(ContentArea, "🚀 Fly Mode", false, nil)
+    CreateToggle(ContentArea, "👻 Noclip", false, nil)
+    CreateToggle(ContentArea, "🦘 Infinite Jump", false, nil)
+    
+    CreateSection(ContentArea, "PLAYER MODS")
+    CreateToggle(ContentArea, "🛡️ God Mode", false, nil)
+    CreateToggle(ContentArea, "⚡ Infinite Stamina", false, nil)
+end
+
+local function LoadConfigsTab()
+    ContentArea:ClearAllChildren()
+    ContentLayout.Parent = ContentArea
+    ContentPadding.Parent = ContentArea
+    
+    CreateSection(ContentArea, "CONFIGURATION")
+    
+    local SaveButton = Instance.new("TextButton")
+    SaveButton.Size = UDim2.new(1, -30, 0, 45)
+    SaveButton.BackgroundColor3 = Config.Colors.Green
+    SaveButton.Text = "💾 SAVE CONFIG"
+    SaveButton.TextColor3 = Config.Colors.White
+    SaveButton.TextSize = 16
+    SaveButton.Font = Enum.Font.GothamBold
+    SaveButton.Parent = ContentArea
+    
+    local SaveCorner = Instance.new("UICorner")
+    SaveCorner.CornerRadius = UDim.new(0, 10)
+    SaveCorner.Parent = SaveButton
+    
+    SaveButton.MouseButton1Click:Connect(function()
+        PlaySound(Sounds.Success, 0.5, 1)
+        print("✅ Configuration sauvegardée!")
     end)
+end
+
+local function LoadDashboardTab()
+    ContentArea:ClearAllChildren()
+    ContentLayout.Parent = ContentArea
+    ContentPadding.Parent = ContentArea
     
-    ClickDetector.MouseLeave:Connect(function()
-        TweenService:Create(Toggle, TweenInfo.new(0.2), {
-            BackgroundColor3 = Color3.fromRGB(40, 42, 45)
-        }):Play()
+    local WelcomeFrame = Instance.new("Frame")
+    WelcomeFrame.Size = UDim2.new(1, -30, 0, 150)
+    WelcomeFrame.BackgroundColor3 = Config.Colors.Background
+    WelcomeFrame.BackgroundTransparency = 0.3
+    WelcomeFrame.BorderSizePixel = 0
+    WelcomeFrame.Parent = ContentArea
+    
+    local WelcomeCorner = Instance.new("UICorner")
+    WelcomeCorner.CornerRadius = UDim.new(0, 12)
+    WelcomeCorner.Parent = WelcomeFrame
+    
+    local WelcomeText = Instance.new("TextLabel")
+    WelcomeText.Size = UDim2.new(1, -20, 0, 40)
+    WelcomeText.Position = UDim2.new(0, 10, 0, 20)
+    WelcomeText.BackgroundTransparency = 1
+    WelcomeText.Text = "🌟 BIENVENUE DANS RIVALS ULTIMATE PREMIUM 🌟"
+    WelcomeText.TextColor3 = Config.Colors.Gold
+    WelcomeText.TextSize = 18
+    WelcomeText.Font = Enum.Font.GothamBold
+    WelcomeText.Parent = WelcomeFrame
+    
+    local InfoText = Instance.new("TextLabel")
+    InfoText.Size = UDim2.new(1, -20, 0, 80)
+    InfoText.Position = UDim2.new(0, 10, 0, 60)
+    InfoText.BackgroundTransparency = 1
+    InfoText.Text = "Menu Premium Master Class\nVersion 4.0.0\nCréé par Hiroshi738\n\n⚡ Toutes les fonctionnalités premium activées ⚡"
+    InfoText.TextColor3 = Config.Colors.White
+    InfoText.TextSize = 14
+    InfoText.Font = Enum.Font.Gotham
+    InfoText.TextWrapped = true
+    InfoText.Parent = WelcomeFrame
+    
+    CreateSection(ContentArea, "STATISTIQUES")
+    CreateToggle(ContentArea, "📊 Afficher les stats", true, nil)
+end
+
+local function SwitchTab(tabName)
+    CurrentTab = tabName
+    PlaySound(Sounds.Click, 0.3, 1)
+    
+    for name, button in pairs(Tabs) do
+        button.BackgroundColor3 = Config.Colors.Background
+        button.BackgroundTransparency = 0.3
+    end
+    
+    Tabs[tabName].BackgroundColor3 = Config.Colors.Primary
+    Tabs[tabName].BackgroundTransparency = 0
+    
+    if tabName == "Dashboard" then LoadDashboardTab()
+    elseif tabName == "Combat" then LoadCombatTab()
+    elseif tabName == "Visuals" then LoadVisualsTab()
+    elseif tabName == "Character" then LoadCharacterTab()
+    elseif tabName == "Configs" then LoadConfigsTab()
+    end
+end
+
+for name, button in pairs(Tabs) do
+    button.MouseButton1Click:Connect(function()
+        SwitchTab(name)
     end)
-    
-    return Toggle
 end
 
--- ═══════════════════════════════════════════════════════════════════════════
--- ESP INTELLIGENT (ROUGE À TRAVERS MURS, VERT VISIBLE)
--- ═══════════════════════════════════════════════════════════════════════════
-local function IsPlayerVisible(player)
-    if not player.Character or not player.Character:FindFirstChild("Head") then
-        return false
-    end
+-- Animations
+local function OpenMenu()
+    BlurOverlay.Visible = true
+    MainFrame.Visible = true
+    MainFrame.Size = UDim2.new(0, 0, 0, 0)
     
-    local ray = Ray.new(Camera.CFrame.Position, (player.Character.Head.Position - Camera.CFrame.Position).Unit * 500)
-    local hit, position = workspace:FindPartOnRayWithIgnoreList(ray, {LocalPlayer.Character, Camera})
+    PlaySound(Sounds.MenuOpen, 0.6, 1)
+    PlaySound(Sounds.Anime, 0.4, 1.2)
+    PlaySound(Sounds.PowerUp, 0.5, 1)
     
-    return hit and hit:IsDescendantOf(player.Character)
+    TweenService:Create(MainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+        Size = UDim2.new(0, 900, 0, 600)
+    }):Play()
+    
+    MenuVisible = true
+    SwitchTab("Dashboard")
+    print("✨ Menu ouvert avec style!")
 end
 
-local function UpdateESP()
-    for player, espData in pairs(ESPObjects) do
-        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-            local isVisible = IsPlayerVisible(player)
-            local color = isVisible and Config.ESPColorVisible or Config.ESPColorHidden
-            
-            if espData.Highlight then
-                espData.Highlight.FillColor = color
-                espData.Highlight.OutlineColor = color
-            end
-            
-            if espData.Billboard and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                local distance = (player.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-                espData.DistanceLabel.Text = math.floor(distance) .. "m"
-                espData.DistanceLabel.TextColor3 = color
-                
-                if espData.HealthLabel and player.Character:FindFirstChild("Humanoid") then
-                    local health = player.Character.Humanoid.Health
-                    local maxHealth = player.Character.Humanoid.MaxHealth
-                    espData.HealthLabel.Text = "HP: " .. math.floor(health) .. "/" .. math.floor(maxHealth)
-                end
-            end
-        end
-    end
+local function CloseMenu()
+    PlaySound(Sounds.MenuClose, 0.5, 0.8)
+    
+    TweenService:Create(MainFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+        Size = UDim2.new(0, 0, 0, 0)
+    }):Play()
+    
+    wait(0.4)
+    MainFrame.Visible = false
+    BlurOverlay.Visible = false
+    MenuVisible = false
+    print("🌙 Menu fermé")
 end
 
-local function CreateESPForPlayer(player)
-    if player == LocalPlayer then return end
-    
-    local function AddESP(char)
-        if ESPObjects[player] then
-            if ESPObjects[player].Highlight then ESPObjects[player].Highlight:Destroy() end
-            if ESPObjects[player].Billboard then ESPObjects[player].Billboard:Destroy() end
-        end
-        
-        local highlight = Instance.new("Highlight")
-        highlight.Name = "ESP_Highlight"
-        highlight.FillTransparency = 0.5
-        highlight.OutlineTransparency = 0
-        highlight.Parent = char
-        
-        local billboard = Instance.new("BillboardGui")
-        billboard.Name = "ESP_Billboard"
-        billboard.Size = UDim2.new(0, 200, 0, 100)
-        billboard.StudsOffset = Vector3.new(0, 3, 0)
-        billboard.AlwaysOnTop = true
-        billboard.Parent = char:FindFirstChild("Head") or char:FindFirstChild("HumanoidRootPart")
-        
-        local nameLabel = Instance.new("TextLabel")
-        nameLabel.Size = UDim2.new(1, 0, 0, 25)
-        nameLabel.BackgroundTransparency = 1
-        nameLabel.Text = player.Name
-        nameLabel.TextSize = 16
-        nameLabel.Font = Enum.Font.GothamBold
-        nameLabel.TextStrokeTransparency = 0.5
-        nameLabel.Parent = billboard
-        
-        local distLabel = Instance.new("TextLabel")
-        distLabel.Size = UDim2.new(1, 0, 0, 20)
-        distLabel.Position = UDim2.new(0, 0, 0, 25)
-        distLabel.BackgroundTransparency = 1
-        distLabel.TextSize = 14
-        distLabel.Font = Enum.Font.Gotham
-        distLabel.TextStrokeTransparency = 0.5
-        distLabel.Parent = billboard
-        
-        local healthLabel = Instance.new("TextLabel")
-        healthLabel.Size = UDim2.new(1, 0, 0, 20)
-        healthLabel.Position = UDim2.new(0, 0, 0, 45)
-        healthLabel.BackgroundTransparency = 1
-        healthLabel.TextSize = 14
-        healthLabel.Font = Enum.Font.Gotham
-        healthLabel.TextStrokeTransparency = 0.5
-        healthLabel.Parent = billboard
-        
-        ESPObjects[player] = {
-            Highlight = highlight,
-            Billboard = billboard,
-            NameLabel = nameLabel,
-            DistanceLabel = distLabel,
-            HealthLabel = healthLabel
-        }
-    end
-    
-    if player.Character then
-        AddESP(player.Character)
-    end
-    
-    player.CharacterAdded:Connect(AddESP)
-end
-
--- ═══════════════════════════════════════════════════════════════════════════
--- FONCTIONNALITÉS
--- ═══════════════════════════════════════════════════════════════════════════
-
--- AIMBOT
-CreateToggle("Aimbot", "🎯", "Visée automatique sur la tête", false, function(enabled)
-    Config.AimbotEnabled = enabled
-    
-    if enabled then
-        Notify("Aimbot", "Aimbot activé! FOV: " .. Config.AimbotFOV, 2)
-        
-        Connections.Aimbot = RunService.RenderStepped:Connect(function()
-            local nearestPlayer = nil
-            local shortestDistance = math.huge
-            
-            for _, player in pairs(Players:GetPlayers()) do
-                if player ~= LocalPlayer and player.Character then
-                    local humanoid = player.Character:FindFirstChild("Humanoid")
-                    local targetPart = player.Character:FindFirstChild(Config.AimbotPart)
-                    
-                    if humanoid and humanoid.Health > 0 and targetPart then
-                        if not Config.AimbotVisibleOnly or IsPlayerVisible(player) then
-                            local screenPos, onScreen = Camera:WorldToViewportPoint(targetPart.Position)
-                            if onScreen then
-                                local distance = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)).Magnitude
-                                if distance < Config.AimbotFOV and distance < shortestDistance then
-                                    shortestDistance = distance
-                                    nearestPlayer = player
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-            
-            if nearestPlayer and nearestPlayer.Character then
-                local targetPart = nearestPlayer.Character:FindFirstChild(Config.AimbotPart)
-                if targetPart then
-                    local targetCFrame = CFrame.new(Camera.CFrame.Position, targetPart.Position)
-                    Camera.CFrame = Camera.CFrame:Lerp(targetCFrame, Config.AimbotSmooth)
-                    
-                    if math.random() > 0.97 then
-                        ShowHitMarker(Config.AimbotPart == "Head")
-                    end
-                end
-            end
-        end)
-    else
-        Notify("Aimbot", "Aimbot désactivé", 2)
-        if Connections.Aimbot then
-            Connections.Aimbot:Disconnect()
-        end
-    end
+CloseButton.MouseButton1Click:Connect(function()
+    PlaySound(Sounds.Click, 0.4, 1)
+    CloseMenu()
 end)
 
--- ESP INTELLIGENT
-CreateToggle("ESP", "👁️", "ESP intelligent (Rouge/Vert)", false, function(enabled)
-    Config.ESPEnabled = enabled
-    
-    if enabled then
-        Notify("ESP", "ESP activé! Rouge = Caché, Vert = Visible", 3)
-        
-        for _, player in pairs(Players:GetPlayers()) do
-            CreateESPForPlayer(player)
-        end
-        
-        Connections.ESPUpdate = RunService.RenderStepped:Connect(UpdateESP)
-        Connections.ESPPlayerAdded = Players.PlayerAdded:Connect(CreateESPForPlayer)
-    else
-        Notify("ESP", "ESP désactivé", 2)
-        
-        for player, espData in pairs(ESPObjects) do
-            if espData.Highlight then espData.Highlight:Destroy() end
-            if espData.Billboard then espData.Billboard:Destroy() end
-        end
-        ESPObjects = {}
-        
-        if Connections.ESPUpdate then Connections.ESPUpdate:Disconnect() end
-        if Connections.ESPPlayerAdded then Connections.ESPPlayerAdded:Disconnect() end
-    end
-end)
-
--- SPEED HACK
-CreateToggle("Speed Hack", "⚡", "Vitesse x3 (50 studs/s)", false, function(enabled)
-    Config.SpeedEnabled = enabled
-    
-    if enabled then
-        Notify("Speed", "Speed activé: " .. Config.SpeedValue .. " studs/s", 2)
-        
-        Connections.Speed = RunService.Heartbeat:Connect(function()
-            if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-                LocalPlayer.Character.Humanoid.WalkSpeed = Config.SpeedValue
-            end
-        end)
-    else
-        Notify("Speed", "Vitesse normale restaurée", 2)
-        if Connections.Speed then Connections.Speed:Disconnect() end
-        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-            LocalPlayer.Character.Humanoid.WalkSpeed = 16
-        end
-    end
-end)
-
--- INFINITE AMMO
-CreateToggle("Infinite Ammo", "🔫", "Munitions illimitées", false, function(enabled)
-    Config.InfiniteAmmo = enabled
-    
-    if enabled then
-        Notify("Ammo", "Munitions infinies activées!", 2)
-        
-        Connections.Ammo = RunService.Heartbeat:Connect(function()
-            if LocalPlayer.Character then
-                for _, tool in pairs(LocalPlayer.Character:GetChildren()) do
-                    if tool:IsA("Tool") then
-                        for _, obj in pairs(tool:GetDescendants()) do
-                            if obj:IsA("IntValue") or obj:IsA("NumberValue") then
-                                if string.lower(obj.Name):find("ammo") or string.lower(obj.Name):find("mag") then
-                                    obj.Value = 999
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-        end)
-    else
-        Notify("Ammo", "Munitions normales", 2)
-        if Connections.Ammo then Connections.Ammo:Disconnect() end
-    end
-end)
-
--- NO RECOIL
-CreateToggle("No Recoil", "🎯", "Supprime le recul des armes", false, function(enabled)
-    Config.NoRecoil = enabled
-    Notify("No Recoil", enabled and "Recul supprimé!" or "Recul normal", 2)
-end)
-
--- TRIGGER BOT
-CreateToggle("Trigger Bot", "🔫", "Tir automatique sur visée", false, function(enabled)
-    Config.TriggerBot = enabled
-    
-    if enabled then
-        Notify("Trigger Bot", "Tir auto activé!", 2)
-        
-        Connections.Trigger = RunService.RenderStepped:Connect(function()
-            local mouse = LocalPlayer:GetMouse()
-            if mouse.Target and mouse.Target.Parent:FindFirstChild("Humanoid") then
-                local player = Players:GetPlayerFromCharacter(mouse.Target.Parent)
-                if player and player ~= LocalPlayer then
-                    mouse1click()
-                    ShowHitMarker(mouse.Target.Name == "Head")
-                end
-            end
-        end)
-    else
-        Notify("Trigger Bot", "Tir auto désactivé", 2)
-        if Connections.Trigger then Connections.Trigger:Disconnect() end
-    end
-end)
-
--- WALLHACK
-CreateToggle("Wallhack", "🧱", "Traverser les murs", false, function(enabled)
-    Config.Wallhack = enabled
-    
-    if enabled then
-        Notify("Wallhack", "Wallhack activé!", 2)
-        for _, obj in pairs(workspace:GetDescendants()) do
-            if obj:IsA("BasePart") and (obj.Name:lower():find("wall") or obj.Name:lower():find("door")) then
-                obj.CanCollide = false
-                obj.Transparency = 0.7
-            end
-        end
-    else
-        Notify("Wallhack", "Wallhack désactivé", 2)
-        for _, obj in pairs(workspace:GetDescendants()) do
-            if obj:IsA("BasePart") and (obj.Name:lower():find("wall") or obj.Name:lower():find("door")) then
-                obj.CanCollide = true
-                obj.Transparency = 0
-            end
-        end
-    end
-end)
-
--- FLY HACK
-CreateToggle("Fly Hack", "🚀", "Mode vol (E = monter, Q = descendre)", false, function(enabled)
-    Config.FlyHack = enabled
-    
-    if enabled then
-        Notify("Fly", "Mode vol activé! E/Q pour monter/descendre", 3)
-        
-        local flying = true
-        local speed = 50
-        local bodyVelocity, bodyGyro
-        
-        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            local hrp = LocalPlayer.Character.HumanoidRootPart
-            
-            bodyVelocity = Instance.new("BodyVelocity")
-            bodyVelocity.Velocity = Vector3.new(0, 0, 0)
-            bodyVelocity.MaxForce = Vector3.new(9e9, 9e9, 9e9)
-            bodyVelocity.Parent = hrp
-            
-            bodyGyro = Instance.new("BodyGyro")
-            bodyGyro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
-            bodyGyro.P = 9e4
-            bodyGyro.Parent = hrp
-            
-            Connections.Fly = RunService.RenderStepped:Connect(function()
-                if not Config.FlyHack then
-                    flying = false
-                    if bodyVelocity then bodyVelocity:Destroy() end
-                    if bodyGyro then bodyGyro:Destroy() end
-                    return
-                end
-                
-                local cam = Camera
-                local direction = Vector3.new(0, 0, 0)
-                
-                if UserInputService:IsKeyDown(Enum.KeyCode.W) then
-                    direction = direction + (cam.CFrame.LookVector * speed)
-                end
-                if UserInputService:IsKeyDown(Enum.KeyCode.S) then
-                    direction = direction - (cam.CFrame.LookVector * speed)
-                end
-                if UserInputService:IsKeyDown(Enum.KeyCode.A) then
-                    direction = direction - (cam.CFrame.RightVector * speed)
-                end
-                if UserInputService:IsKeyDown(Enum.KeyCode.D) then
-                    direction = direction + (cam.CFrame.RightVector * speed)
-                end
-                if UserInputService:IsKeyDown(Enum.KeyCode.E) then
-                    direction = direction + Vector3.new(0, speed, 0)
-                end
-                if UserInputService:IsKeyDown(Enum.KeyCode.Q) then
-                    direction = direction - Vector3.new(0, speed, 0)
-                end
-                
-                bodyVelocity.Velocity = direction
-                bodyGyro.CFrame = cam.CFrame
-            end)
-        end
-    else
-        Notify("Fly", "Mode vol désactivé", 2)
-        if Connections.Fly then Connections.Fly:Disconnect() end
-    end
-end)
-
--- BUNNY HOP
-CreateToggle("Bunny Hop", "🐰", "Saut automatique", false, function(enabled)
-    Config.BunnyHop = enabled
-    
-    if enabled then
-        Notify("Bunny Hop", "Bunny hop activé!", 2)
-        
-        Connections.BHop = RunService.Heartbeat:Connect(function()
-            if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-                local humanoid = LocalPlayer.Character.Humanoid
-                if humanoid.MoveDirection.Magnitude > 0 then
-                    humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-                end
-            end
-        end)
-    else
-        Notify("Bunny Hop", "Bunny hop désactivé", 2)
-        if Connections.BHop then Connections.BHop:Disconnect() end
-    end
-end)
-
--- ═══════════════════════════════════════════════════════════════════════════
--- CONTRÔLES DU MENU
--- ═══════════════════════════════════════════════════════════════════════════
-local MenuOpen = false
-
-local function ToggleMenu()
-    MenuOpen = not MenuOpen
-    
-    if MenuOpen then
-        PlaySound(Sounds.Click, 0.4)
-        MainFrame.Visible = true
-        MainFrame.Size = UDim2.new(0, 0, 0, 0)
-        TweenService:Create(MainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 650, 0, 450)
-        }):Play()
-        Notify("Menu", "Menu ouvert - By Hiroshi738", 2)
-    else
-        PlaySound(Sounds.Click, 0.4)
-        TweenService:Create(MainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
-            Size = UDim2.new(0, 0, 0, 0)
-        }):Play()
-        wait(0.3)
-        MainFrame.Visible = false
-    end
-end
-
-CloseBtn.MouseButton1Click:Connect(ToggleMenu)
-
-UserInputService.InputBegan:Connect(function(input)
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
     if input.KeyCode == Enum.KeyCode.Insert then
-        ToggleMenu()
+        if MenuVisible then CloseMenu() else OpenMenu() end
     end
 end)
 
--- Draggable
-local dragging, dragInput, dragStart, startPos
-
-Header.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragStart = input.Position
-        startPos = MainFrame.Position
-        
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
+-- Animation du logo
+spawn(function()
+    while true do
+        TweenService:Create(Logo, TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {
+            Rotation = 15
+        }):Play()
+        wait(1)
     end
 end)
 
-UserInputService.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
-        dragInput = input
-    end
-end)
-
-UserInputService.InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        local delta = input.Position - dragStart
-        MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-end)
-
--- ═══════════════════════════════════════════════════════════════════════════
--- INITIALISATION
--- ═══════════════════════════════════════════════════════════════════════════
-wait(0.5)
-PlaySound(Sounds.Click, 0.5)
-Notify("Rivals Hack", "Menu chargé! By Hiroshi738 🎮", 3)
-
-print("╔═══════════════════════════════════════════╗")
-print("║   RIVALS ULTIMATE HACK MENU              ║")
-print("║   By Hiroshi738                          ║")
-print("║   Version 4.0 Premium                    ║")
-print("║   Appuyez sur INSERT pour ouvrir         ║")
-print("╚═══════════════════════════════════════════╝")
+print("✅ Rivals Ultimate Premium Menu chargé!")
+print("💡 Appuyez sur INSERT pour ouvrir")
+print("🎮 Version Master Class - 500€/mois")
+print("⚡ Made with ❤️ by Hiroshi738")
 
 wait(1)
-ToggleMenu()
+OpenMenu()
 
 -- Made with Bob
