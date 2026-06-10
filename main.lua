@@ -7,12 +7,12 @@
     █    █ ██████ ▄▀      ██████            ███    █▄  ███ ▀███▄  
      ▀▀▀▀                                   ██████████  ▀       ▀▀ 
                                                                   
-    HIROSHI AI - NUXUS GENESIS V17.0 (THE FINAL DESTROYER)
-    CERTIFIED GITHUB PRO-GRADE | BEST RIVALS CHEAT
+    HIROSHI AI - NUXUS ETERNAL V18.0 (CERTIFIED PRO-GRADE)
+    THE ULTIMATE RIVALS EXPLOIT FRAMEWORK | GITHUB-READY
 --]]
 
--- // 1. CORE SERVICES
 repeat task.wait() until game:IsLoaded()
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
@@ -25,62 +25,55 @@ local LP = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
 local Mouse = LP:GetMouse()
 
--- // 2. CONFIGURATION GLOVALE (PRÊT POUR LA VENTE)
-getgenv().NuxusGenesis = {
+-- // 1. SYSTEM CONFIGURATION (MEGA TABLE)
+getgenv().NuxusEternal = {
     Combat = {
-        Aimbot = true, Snap = true, FOV = 200, Smooth = 1.2, Predict = 0.18, 
+        Enabled = true, SilentAim = false, FOV = 220, Smooth = 1.2, Predict = 0.185,
         Hitbox = "Head", SnapKey = Enum.KeyCode.V, LockKey = Enum.UserInputType.MouseButton2,
-        ShowFOV = true, WallCheck = true
+        ShowFOV = true, WallCheck = true, AutoShoot = false
     },
     Visuals = {
         Enabled = true, Boxes = true, Skeletons = true, Chams = true,
         Names = true, Health = true, Distance = true, LookTracers = true,
-        VisCol = Color3.fromRGB(0, 255, 125), InvisCol = Color3.fromRGB(255, 45, 45)
+        Thickness = 2, VisCol = Color3.fromRGB(0, 255, 150), InvisCol = Color3.fromRGB(255, 40, 40)
     },
-    Weapon = { NoRecoil = true, NoSpread = true, InstaReload = true, RapidFire = false },
-    Player = { Speed = 24, Jump = 65, InfJump = true, Bhop = true, Fly = false },
-    World = { Fullbright = true, CustomTime = 14, Skybox = "Pink Neon" },
+    Weapon = { NoRecoil = true, NoSpread = true, FastReload = true, RapidFire = true },
+    Movement = { Speed = 26, Jump = 65, InfJump = true, Bhop = true, Fly = false },
+    Atmosphere = { Fullbright = true, CustomTime = 14, FogRemoved = true },
     Config = { MenuKey = Enum.KeyCode.X, BubblePop = true, AnimeVoice = true, Hitmarker = true }
 }
 
--- // 3. MOTEUR AUDIO WAIFU (VOIX ANIME FILLE)
-local function PlayWaifuVoice()
-    if not NuxusGenesis.Config.AnimeVoice then return end
-    local voices = {
-        138131333, -- Onii-chan
-        6047576530, -- Ara Ara
-        6835250443, -- Nico Nico Nii
-        8565653457 -- Kawaii sound
-    }
+-- // 2. AUDIO & FEEDBACK ENGINE (FORCÉ)
+local function PlayEffect(id, volume)
     local s = Instance.new("Sound", SService)
-    s.SoundId = "rbxassetid://" .. voices[math.random(1, #voices)]
-    s.Volume = 5
+    s.SoundId = "rbxassetid://" .. tostring(id)
+    s.Volume = volume or 5
     s:Play()
     Debris:AddItem(s, 3)
 end
 
-local function PlayPop()
-    if NuxusGenesis.Config.BubblePop then
-        local s = Instance.new("Sound", SService)
-        s.SoundId = "rbxassetid://6342133423"
-        s.Volume = 4
-        s:Play()
-        Debris:AddItem(s, 2)
-    end
+local function TriggerKillVoice()
+    if not NuxusEternal.Config.AnimeVoice then return end
+    local animeSounds = {138131333, 6047576530, 6835250443, 8565653457}
+    PlayEffect(animeSounds[math.random(1, #animeSounds)], 8)
 end
 
--- // 4. MODERN UI LIBRARY (V17 PRO DESIGN)
-local GUI_ID = "Nuxus_Genesis_V17"
+local function TriggerBubble()
+    if not NuxusEternal.Config.BubblePop then return end
+    PlayEffect(6342133423, 6) -- High Definition Bubble Pop
+end
+
+-- // 3. MODERN UI LIBRARY (NUXUS ETERNAL)
+local GUI_ID = "Nuxus_Eternal_Hub"
 if CoreGui:FindFirstChild(GUI_ID) then CoreGui[GUI_ID]:Destroy() end
 
 local Screen = Instance.new("ScreenGui", CoreGui)
 Screen.Name = GUI_ID
-Screen.IgnoreGuiInset = true
 
 local Main = Instance.new("Frame", Screen)
-Main.Size = UDim2.new(0, 680, 0, 500)
-Main.Position = UDim2.new(0.5, -340, 0.5, -250)
-Main.BackgroundColor3 = Color3.fromRGB(10, 10, 14)
+Main.Size = UDim2.new(0, 720, 0, 520)
+Main.Position = UDim2.new(0.5, -360, 0.5, -260)
+Main.BackgroundColor3 = Color3.fromRGB(8, 8, 12)
 Main.BorderSizePixel = 0
 Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 15)
 local Stroke = Instance.new("UIStroke", Main)
@@ -88,26 +81,26 @@ Stroke.Thickness, Stroke.Color = 2.5, Color3.fromRGB(160, 60, 255)
 
 -- SIDEBAR
 local Side = Instance.new("Frame", Main)
-Side.Size = UDim2.new(0, 190, 1, 0)
-Side.BackgroundColor3 = Color3.fromRGB(14, 14, 20)
+Side.Size = UDim2.new(0, 200, 1, 0)
+Side.BackgroundColor3 = Color3.fromRGB(12, 12, 18)
 Side.BorderSizePixel = 0
 Instance.new("UICorner", Side).CornerRadius = UDim.new(0, 15)
 
 local Logo = Instance.new("TextLabel", Side)
-Logo.Size = UDim2.new(1, 0, 0, 80)
-Logo.Text = "NUXUS GENESIS"
-Logo.Font, Logo.TextColor3, Logo.TextSize = "GothamBold", Color3.fromRGB(160, 60, 255), 22
+Logo.Size = UDim2.new(1, 0, 0, 100)
+Logo.Text = "NUXUS ETERNAL"
+Logo.Font, Logo.TextColor3, Logo.TextSize = "GothamBold", Color3.fromRGB(160, 60, 255), 24
 Logo.BackgroundTransparency = 1
 
 local TabHolder = Instance.new("Frame", Side)
 TabHolder.Size = UDim2.new(1, 0, 1, -120)
-TabHolder.Position = UDim2.new(0, 0, 0, 90)
+TabHolder.Position = UDim2.new(0, 0, 0, 100)
 TabHolder.BackgroundTransparency = 1
-Instance.new("UIListLayout", TabHolder).HorizontalAlignment, TabHolder.UIListLayout.Padding = "Center", UDim.new(0, 8)
+local TL = Instance.new("UIListLayout", TabHolder) TL.HorizontalAlignment, TL.Padding = "Center", UDim.new(0, 10)
 
 -- CONTENT AREA
 local PageContainer = Instance.new("Frame", Main)
-PageContainer.Size, PageContainer.Position = UDim2.new(1, -210, 1, -40), UDim2.new(0, 200, 0, 20)
+PageContainer.Size, PageContainer.Position = UDim2.new(1, -220, 1, -40), UDim2.new(0, 210, 0, 20)
 PageContainer.BackgroundTransparency = 1
 
 local Pages = {}
@@ -115,20 +108,20 @@ local Pages = {}
 local function NewTab(name, icon)
     local Page = Instance.new("ScrollingFrame", PageContainer)
     Page.Size, Page.BackgroundTransparency, Page.Visible, Page.ScrollBarThickness = UDim2.new(1, 0, 1, 0), 1, false, 0
-    Instance.new("UIListLayout", Page).Padding = UDim.new(0, 10)
+    Instance.new("UIListLayout", Page).Padding = UDim.new(0, 12)
     
     local Btn = Instance.new("TextButton", TabHolder)
-    Btn.Size = UDim2.new(0, 170, 0, 45)
-    Btn.BackgroundColor3 = Color3.fromRGB(22, 22, 32)
-    Btn.Text = "  " .. icon .. "  " .. name
-    Btn.Font, Btn.TextColor3, Btn.TextSize = "GothamBold", Color3.fromRGB(200, 200, 200), 13
+    Btn.Size = UDim2.new(0, 180, 0, 50)
+    Btn.BackgroundColor3 = Color3.fromRGB(20, 20, 28)
+    Btn.Text = "   " .. icon .. "   " .. name
+    Btn.Font, Btn.TextColor3, Btn.TextSize = "GothamBold", Color3.fromRGB(200, 200, 200), 14
     Btn.TextXAlignment = "Left"
-    Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 10)
+    Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 12)
     
     Btn.MouseButton1Click:Connect(function()
         for _, p in pairs(Pages) do p.Visible = false end
         Page.Visible = true
-        for _, b in pairs(TabHolder:GetChildren()) do if b:IsA("TextButton") then b.BackgroundColor3 = Color3.fromRGB(22, 22, 32) end end
+        for _, b in pairs(TabHolder:GetChildren()) do if b:IsA("TextButton") then b.BackgroundColor3 = Color3.fromRGB(20, 20, 28) end end
         Btn.BackgroundColor3 = Color3.fromRGB(160, 60, 255)
     end)
     Pages[name] = Page return Page
@@ -136,174 +129,181 @@ end
 
 local function AddToggle(parent, text, cfg_tab, cfg_key)
     local f = Instance.new("TextButton", parent)
-    f.Size, f.BackgroundColor3, f.Text = UDim2.new(1, -5, 0, 50), Color3.fromRGB(20, 20, 28), "   " .. text
+    f.Size, f.BackgroundColor3, f.Text = UDim2.new(1, -5, 0, 55), Color3.fromRGB(18, 18, 25), "     " .. text
     f.Font, f.TextColor3, f.TextSize, f.TextXAlignment = "GothamMedium", Color3.new(1,1,1), 14, "Left"
-    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 10)
+    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 12)
     local ind = Instance.new("Frame", f)
-    ind.Size, ind.Position = UDim2.new(0, 40, 0, 22), UDim2.new(1, -50, 0.5, -11)
-    ind.BackgroundColor3 = NuxusGenesis[cfg_tab][cfg_key] and Color3.fromRGB(160, 60, 255) or Color3.fromRGB(50, 50, 60)
+    ind.Size, ind.Position = UDim2.new(0, 42, 0, 22), UDim2.new(1, -55, 0.5, -11)
+    ind.BackgroundColor3 = NuxusEternal[cfg_tab][cfg_key] and Color3.fromRGB(160, 60, 255) or Color3.fromRGB(50, 50, 65)
     Instance.new("UICorner", ind).CornerRadius = UDim.new(1, 0)
     f.MouseButton1Click:Connect(function()
-        NuxusGenesis[cfg_tab][cfg_key] = not NuxusGenesis[cfg_tab][cfg_key]
-        ind.BackgroundColor3 = NuxusGenesis[cfg_tab][cfg_key] and Color3.fromRGB(160, 60, 255) or Color3.fromRGB(50, 50, 60)
-        PlayPop()
+        NuxusEternal[cfg_tab][cfg_key] = not NuxusEternal[cfg_tab][cfg_key]
+        TW:Create(ind, TweenInfo.new(0.3), {BackgroundColor3 = NuxusEternal[cfg_tab][cfg_key] and Color3.fromRGB(160, 60, 255) or Color3.fromRGB(50, 50, 65)}):Play()
+        TriggerBubble()
     end)
 end
 
--- // 5. REMPLISSAGE DES ONGLETS (INCROYABLEMENT COMPLET)
-local Combat = NewTab("COMBAT", "🎯")
-local Visuals = NewTab("VISUALS", "👁️")
-local Player = NewTab("PLAYER", "🏃")
-local Weapon = NewTab("WEAPON", "🔫")
-local Config = NewTab("CONFIG", "⚙️")
+-- // 4. REMPLISSAGE DES ONGLETS (INCROYABLEMENT RICHE)
+local CombatTab = NewTab("COMBAT", "🎯")
+local VisualTab = NewTab("VISUALS", "👁️")
+local PlayerTab = NewTab("PLAYER", "🚀")
+local WeaponTab = NewTab("WEAPON", "🔫")
+local WorldTab  = NewTab("WORLD", "🌍")
+local ConfigTab = NewTab("CONFIG", "⚙️")
 
 -- Combat
-AddToggle(Combat, "Master Aimbot", "Combat", "Aimbot")
-AddToggle(Combat, "Rage Snap (V)", "Combat", "Snap")
-AddToggle(Combat, "Wall Check (Vis)", "Combat", "WallCheck")
-AddToggle(Combat, "Show FOV Radius", "Combat", "ShowFOV")
+AddToggle(CombatTab, "Nuxus Aimbot", "Combat", "Enabled")
+AddToggle(CombatTab, "Instant Head Snap (V)", "Combat", "Snap")
+AddToggle(CombatTab, "Wall-Check Detection", "Combat", "WallCheck")
+AddToggle(CombatTab, "Display FOV Circle", "Combat", "ShowFOV")
 
--- Visuals
-AddToggle(Visuals, "Master ESP", "Visuals", "Enabled")
-AddToggle(Visuals, "ESP Boxes 2D", "Visuals", "Boxes")
-AddToggle(Visuals, "ESP Skeletons (Pro)", "Visuals", "Skeletons")
-AddToggle(Visuals, "3D Glowing Chams", "Visuals", "Chams")
-AddToggle(Visuals, "Player Names", "Visuals", "Names")
-AddToggle(Visuals, "Show Distance", "Visuals", "Distance")
+-- Visuals (LES NOMS SONT ICI !)
+AddToggle(VisualTab, "Master Visuals", "Visuals", "Enabled")
+AddToggle(VisualTab, "Box ESP Occlusion", "Visuals", "Boxes")
+AddToggle(VisualTab, "Pro Skeletons", "Visuals", "Skeletons")
+AddToggle(VisualTab, "Show Player Names", "Visuals", "Names")
+AddToggle(VisualTab, "Show Distance", "Visuals", "Distance")
+AddToggle(VisualTab, "Glow Chams", "Visuals", "Chams")
 
--- Player & Weapon
-AddToggle(Player, "Infinite Jump", "Player", "InfJump")
-AddToggle(Player, "Fullbright World", "Player", "Fullbright")
-AddToggle(Weapon, "Zero Recoil", "Weapon", "NoRecoil")
-AddToggle(Weapon, "Zero Spread", "Weapon", "NoSpread")
+-- Weapon & Player
+AddToggle(WeaponTab, "Zero Recoil Laser", "Weapon", "NoRecoil")
+AddToggle(WeaponTab, "Instant Rapid Fire", "Weapon", "RapidFire")
+AddToggle(PlayerTab, "Infinite Jump Request", "Movement", "InfJump")
+AddToggle(PlayerTab, "Automatic Bhop", "Movement", "Bhop")
 
 -- Config
-AddToggle(Config, "Anime Girl Voices", "Config", "AnimeVoice")
-AddToggle(Config, "Satisfying Pop", "Config", "BubblePop")
+AddToggle(ConfigTab, "Waifu Kill Voices", "Config", "AnimeVoice")
+AddToggle(ConfigTab, "Drip-Bubble Sounds", "Config", "BubblePop")
 
--- // 6. MOTEUR SQUELETTE ESP (C'EST ÇA QU'IL MANQUAIT !)
-local function DrawLine()
-    local l = Drawing.new("Line")
-    l.Thickness = 1
-    l.Visible = false
-    l.Color = Color3.new(1,1,1)
-    return l
-end
+-- // 5. MOTEUR ESP TOTAL (DRAWING API)
+local function DrawText() local t = Drawing.new("Text") t.Size, t.Outline, t.Center, t.Visible = 14, true, true, false return t end
+local function DrawLine() local l = Drawing.new("Line") l.Thickness, l.Visible = 1.5, false return l end
 
 local function GetVis(part)
-    local ray = Ray.new(Camera.CFrame.Position, (part.Position - Camera.CFrame.Position).Unit * 2000)
-    local hit = workspace:FindPartOnRayWithIgnoreList(ray, {LP.Character, Camera})
+    local hit = workspace:FindPartOnRayWithIgnoreList(Ray.new(Camera.CFrame.Position, (part.Position - Camera.CFrame.Position).Unit * 2000), {LP.Character, Camera})
     return hit and hit:IsDescendantOf(part.Parent)
 end
 
 local function ManageESP(p)
-    local Box = Drawing.new("Square")
-    Box.Thickness, Box.Visible = 2, false
-    
-    local Skeleton = {
-        HeadToTorso = DrawLine(),
-        TorsoToLArm = DrawLine(),
-        TorsoToRArm = DrawLine(),
-        TorsoToLLeg = DrawLine(),
-        TorsoToRLeg = DrawLine()
-    }
+    local Box = Drawing.new("Square") Box.Thickness, Box.Visible = 2, false
+    local NameTag = DrawText()
+    local DistTag = DrawText()
+    local Skel = {H2T = DrawLine(), T2LA = DrawLine(), T2RA = DrawLine(), T2LL = DrawLine(), T2RL = DrawLine()}
 
     RunService.RenderStepped:Connect(function()
-        if NuxusGenesis.Visuals.Enabled and p.Character and p.Character:FindFirstChild("Head") and p ~= LP then
+        if NuxusEternal.Visuals.Enabled and p.Character and p.Character:FindFirstChild("Head") and p ~= LP then
             local char = p.Character
             local head = char.Head
-            local torso = char:FindFirstChild("UpperTorso") or char:FindFirstChild("Torso")
-            local lArm = char:FindFirstChild("LeftUpperArm") or char:FindFirstChild("Left Arm")
-            local rArm = char:FindFirstChild("RightUpperArm") or char:FindFirstChild("Right Arm")
-            local lLeg = char:FindFirstChild("LeftUpperLeg") or char:FindFirstChild("Left Leg")
-            local rLeg = char:FindFirstChild("RightUpperLeg") or char:FindFirstChild("Right Leg")
-            
-            local pos, onS = Camera:WorldToViewportPoint(torso.Position)
+            local root = char.HumanoidRootPart
+            local pos, onS = Camera:WorldToViewportPoint(root.Position)
             local visible = GetVis(head)
-            local color = visible and NuxusGenesis.Visuals.VisCol or NuxusGenesis.Visuals.InvisCol
+            local color = visible and NuxusEternal.Visuals.VisCol or NuxusEternal.Visuals.InvisCol
             
             -- CHAMS
-            if NuxusGenesis.Visuals.Chams then
-                local h = char:FindFirstChild("GenesisH") or Instance.new("Highlight", char)
-                h.Name, h.FillColor, h.FillTransparency = "GenesisH", color, 0.5
+            if NuxusEternal.Visuals.Chams then
+                local h = char:FindFirstChild("NuxEternal") or Instance.new("Highlight", char)
+                h.Name, h.FillColor, h.FillTransparency = "NuxEternal", color, 0.5
             end
 
-            -- SKELETON
-            if onS and NuxusGenesis.Visuals.Skeletons then
-                local function Connect(p1, p2, line)
-                    local sp1, vis1 = Camera:WorldToViewportPoint(p1.Position)
-                    local sp2, vis2 = Camera:WorldToViewportPoint(p2.Position)
-                    if vis1 and vis2 then
-                        line.From, line.To, line.Color, line.Visible = Vector2.new(sp1.X, sp1.Y), Vector2.new(sp2.X, sp2.Y), color, true
-                    else line.Visible = false end
+            if onS then
+                -- NAMES
+                if NuxusEternal.Visuals.Names then
+                    NameTag.Text = p.Name
+                    NameTag.Position = Vector2.new(pos.X, pos.Y - 50)
+                    NameTag.Color, NameTag.Visible = color, true
+                else NameTag.Visible = false end
+
+                -- DISTANCE
+                if NuxusEternal.Visuals.Distance then
+                    DistTag.Text = "[" .. math.floor((root.Position - Camera.CFrame.Position).Magnitude) .. "m]"
+                    DistTag.Position = Vector2.new(pos.X, pos.Y + 40)
+                    DistTag.Color, DistTag.Visible = Color3.new(1,1,1), true
+                else DistTag.Visible = false end
+
+                -- BOXES
+                if NuxusEternal.Visuals.Boxes then
+                    local h = (Camera:WorldToViewportPoint(head.Position + Vector3.new(0, 1, 0)).Y - Camera:WorldToViewportPoint(root.Position - Vector3.new(0, 3, 0)).Y)
+                    Box.Size, Box.Position, Box.Color, Box.Visible = Vector2.new(h * 0.7, h), Vector2.new(pos.X - (Box.Size.X/2), pos.Y - (Box.Size.Y/2)), color, true
+                else Box.Visible = false end
+
+                -- SKELETONS
+                if NuxusEternal.Visuals.Skeletons then
+                    local function Link(p1, p2, l)
+                        local s1, v1 = Camera:WorldToViewportPoint(p1.Position)
+                        local s2, v2 = Camera:WorldToViewportPoint(p2.Position)
+                        if v1 and v2 then l.From, l.To, l.Color, l.Visible = Vector2.new(s1.X, s1.Y), Vector2.new(s2.X, s2.Y), color, true else l.Visible = false end
+                    end
+                    Link(head, root, Skel.H2T)
                 end
-                Connect(head, torso, Skeleton.HeadToTorso)
-                Connect(torso, lArm, Skeleton.TorsoToLArm)
-                Connect(torso, rArm, Skeleton.TorsoToRArm)
-                Connect(torso, lLeg, Skeleton.TorsoToLLeg)
-                Connect(torso, rLeg, Skeleton.TorsoToRLeg)
-            else
-                for _, l in pairs(Skeleton) do l.Visible = false end
-            end
-
-            if onS and NuxusGenesis.Visuals.Boxes then
-                local h = (Camera:WorldToViewportPoint(head.Position + Vector3.new(0, 1, 0)).Y - Camera:WorldToViewportPoint(torso.Position - Vector3.new(0, 3, 0)).Y)
-                Box.Size, Box.Position, Box.Color, Box.Visible = Vector2.new(h * 0.7, h), Vector2.new(pos.X - (Box.Size.X/2), pos.Y - (Box.Size.Y/2)), color, true
-            else Box.Visible = false end
+            else Box.Visible, NameTag.Visible, DistTag.Visible = false, false, false end
             
-            -- KILL VOICE
-            if char.Humanoid.Health <= 0 and not p:FindFirstChild("GenesisDead") then
-                Instance.new("BoolValue", p).Name = "GenesisDead"
-                PlayWaifuVoice()
+            -- KILL DETECTION
+            if char.Humanoid.Health <= 0 and not p:FindFirstChild("NuxDead") then
+                Instance.new("BoolValue", p).Name = "NuxDead"
+                TriggerKillVoice()
             end
         else
-            Box.Visible = false
-            for _, l in pairs(Skeleton) do l.Visible = false end
-            if p.Character and p.Character:FindFirstChild("GenesisH") then p.Character.GenesisH:Destroy() end
+            Box.Visible, NameTag.Visible, DistTag.Visible = false, false, false
+            if p.Character and p.Character:FindFirstChild("NuxEternal") then p.Character.NuxEternal:Destroy() end
         end
     end)
 end
 
--- // 7. FINAL MAIN LOOP (AIMBOT & RAGE)
-local FOVCircle = Drawing.new("Circle")
-FOVCircle.Thickness, FOVCircle.Color = 1, Color3.fromRGB(160, 60, 255)
+-- // 6. FINAL ENGINE (AIMBOT & PERFORMANCE)
+local FOV_Circle = Drawing.new("Circle")
+FOV_Circle.Thickness, FOV_Circle.Color = 1, Color3.fromRGB(160, 60, 255)
 
 RunService.RenderStepped:Connect(function()
-    FOVCircle.Visible = NuxusGenesis.Combat.ShowFOV and NuxusGenesis.Combat.Aimbot
-    FOVCircle.Radius, FOVCircle.Position = NuxusGenesis.Combat.FOV, UIS:GetMouseLocation()
+    FOV_Circle.Visible = NuxusEternal.Combat.ShowFOV and NuxusEternal.Combat.Enabled
+    FOV_Circle.Radius, FOV_Circle.Position = NuxusEternal.Combat.FOV, UIS:GetMouseLocation()
     
-    if NuxusGenesis.World.Fullbright then Lighting.Brightness = 2 end
+    if NuxusEternal.Atmosphere.Fullbright then Lighting.Brightness = 2 end
     if LP.Character and LP.Character:FindFirstChild("Humanoid") then
-        LP.Character.Humanoid.WalkSpeed = NuxusGenesis.Player.Speed
+        LP.Character.Humanoid.WalkSpeed = NuxusEternal.Movement.Speed
     end
 
-    if NuxusGenesis.Combat.Aimbot and UIS:IsMouseButtonPressed(NuxusGenesis.Combat.LockKey) then
-        local t, d = nil, NuxusGenesis.Combat.FOV
+    if NuxusEternal.Combat.Enabled and UIS:IsMouseButtonPressed(NuxusEternal.Combat.LockKey) then
+        local t, bDist = nil, NuxusEternal.Combat.FOV
         for _, p in pairs(Players:GetPlayers()) do
-            if p ~= LP and p.Character and p.Character:FindFirstChild(NuxusGenesis.GenesisConfig and NuxusGenesis.GenesisConfig.Combat.Hitbox or "Head") then
+            if p ~= LP and p.Character and p.Character:FindFirstChild("Head") and p.Character.Humanoid.Health > 0 then
                 local pos, onS = Camera:WorldToViewportPoint(p.Character.Head.Position)
                 if onS then
-                    local mDist = (Vector2.new(pos.X, pos.Y) - UIS:GetMouseLocation()).Magnitude
-                    if mDist < d then t, d = p, mDist end
+                    local d = (Vector2.new(pos.X, pos.Y) - UIS:GetMouseLocation()).Magnitude
+                    if d < bDist then t, bDist = p, d end
                 end
             end
         end
         if t then
             local head = t.Character.Head
-            local screenPos = Camera:WorldToViewportPoint(head.Position + (head.Velocity * NuxusGenesis.Combat.Predict))
-            mousemoverel((screenPos.X - Mouse.X)/NuxusGenesis.Combat.Smooth, (screenPos.Y - Mouse.Y)/NuxusGenesis.Combat.Smooth)
+            local screenPos = Camera:WorldToViewportPoint(head.Position + (head.Velocity * NuxusEternal.Combat.Predict))
+            mousemoverel((screenPos.X - Mouse.X)/NuxusEternal.Combat.Smooth, (screenPos.Y - Mouse.Y)/NuxusEternal.Combat.Smooth)
         end
     end
 end)
 
--- TOUCHE X ET SNAP
-UIS.InputBegan:Connect(function(input)
-    if input.KeyCode == NuxusGenesis.Config.MenuKey then Main.Visible = not Main.Visible end
-    if input.KeyCode == Enum.KeyCode.Space and NuxusGenesis.Player.InfJump then LP.Character.Humanoid:ChangeState(3) end
+-- TOUCHE X ET SNAP V
+UIS.InputBegan:Connect(function(i)
+    if i.KeyCode == NuxusEternal.Config.MenuKey then Main.Visible = not Main.Visible end
+    if i.KeyCode == Enum.KeyCode.Space and NuxusEternal.Movement.InfJump then LP.Character.Humanoid:ChangeState(3) end
+    if i.KeyCode == NuxusEternal.Combat.SnapKey and NuxusEternal.Combat.Enabled then
+        local t, d = nil, 500
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= LP and p.Character and p.Character:FindFirstChild("Head") then
+                local mD = (p.Character.Head.Position - Camera.CFrame.Position).Magnitude
+                if mD < d then t, d = p, mD end
+            end
+        end
+        if t then
+            local sp = Camera:WorldToViewportPoint(t.Character.Head.Position)
+            mousemoverel(sp.X - Mouse.X, sp.Y - Mouse.Y)
+            TriggerBubble()
+            if mouse1click then mouse1click() end
+        end
+    end
 end)
 
--- BOOT
+-- INITIALISATION
 for _, p in pairs(Players:GetPlayers()) do ManageESP(p) end
 Players.PlayerAdded:Connect(ManageESP)
 Pages["COMBAT"].Visible = true
-print("NUXUS GENESIS V17 LOADED - OMEDETOU ONII-CHAN!")
+print("NUXUS ETERNAL V18 LOADED - THE GOD OF RIVALS")
